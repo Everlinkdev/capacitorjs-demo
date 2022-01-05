@@ -17,7 +17,7 @@ import org.json.JSONException;
 
 
 @CapacitorPlugin(
-        name = "CapDemo",
+        name = "EverlinkPlugin",
         permissions={
                 @Permission(
                         alias = "microphone",
@@ -28,13 +28,11 @@ import org.json.JSONException;
 public class EverlinkPlugin extends Plugin {
 
     private com.everlink.broadcast.util.Everlink EverlinkConnect;
-    private boolean connectCalled = false;
 
     public EverlinkPlugin() {
 
         String myAppID = "12345";
 
-        connectCalled = true;
         EverlinkConnect = new Everlink(getContext(), getActivity(), myAppID);
         EverlinkConnect.setAudioListener(new Everlink.audioListener() {
 

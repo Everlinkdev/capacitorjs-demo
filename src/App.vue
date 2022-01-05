@@ -21,6 +21,9 @@
 import { Plugins } from "@capacitor/core";
 const { EverlinkPlugin } = Plugins;
 
+var myPluginEventListener;
+var myPluginEventListener2;
+
 export default {
   name: 'App',
   methods: {
@@ -45,7 +48,7 @@ export default {
       EverlinkPlugin.everlinkPlayToken({ token: 'exampleToken12345', isOffline: false });
     },
     newToken() {
-      //Generate a new user token to save in your database
+      //generate a new user token to save in your database
       EverlinkPlugin.everlinkNewToken();
     },
     playVolume() {
@@ -61,6 +64,23 @@ export default {
       //delete saved tokens and their audiocodes 
       EverlinkPlugin.everlinkClearSounds();
     }
+  },
+
+  created: function () {
+     myPluginEventListener = EverlinkPlugin.addListener("onAudioCodeReceived", (result) => {
+      const token = JSON.stringify(result.detectedToken);
+      alert(token);
+    });
+
+     myPluginEventListener2 = EverlinkPlugin.addListener("onMyTokenGenerated", (result) => {
+      const token = JSON.stringify(result.newToken);
+      alert(token);
+    });
+  },
+
+  destroyed: function () {
+    myPluginEventListener.remove();
+    myPluginEventListener2.remove();
   }
 }
 
