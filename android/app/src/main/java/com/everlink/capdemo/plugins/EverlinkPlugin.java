@@ -27,7 +27,7 @@ import org.json.JSONException;
 )
 public class EverlinkPlugin extends Plugin {
 
-    private com.everlink.broadcast.util.Everlink EverlinkConnect;
+    private final com.everlink.broadcast.util.Everlink EverlinkConnect;
 
     public EverlinkPlugin() {
 

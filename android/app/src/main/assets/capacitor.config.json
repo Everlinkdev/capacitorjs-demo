@@ -1,6 +1,6 @@
 {
 	"appId": "com.everlink.capdemo",
 	"appName": "cap-demo",
-	"webDir": "public",
+	"webDir": "dist",
 	"bundledWebRuntime": false
 }

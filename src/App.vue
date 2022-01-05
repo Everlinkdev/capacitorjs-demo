@@ -18,14 +18,17 @@
 </template>
 
 <script>
+
 import { Plugins } from "@capacitor/core";
 const { EverlinkPlugin } = Plugins;
 
 var myPluginEventListener;
 var myPluginEventListener2;
 
+
 export default {
   name: 'App',
+  
   methods: {
     startListening: function() {
       //to start listening for a code call:
@@ -50,6 +53,7 @@ export default {
     newToken() {
       //generate a new user token to save in your database
       EverlinkPlugin.everlinkNewToken();
+      alert('token');
     },
     playVolume() {
       //set the volume 
@@ -82,6 +86,7 @@ export default {
     myPluginEventListener.remove();
     myPluginEventListener2.remove();
   }
+  
 }
 
 </script>
