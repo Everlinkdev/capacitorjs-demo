@@ -18,12 +18,52 @@
 </template>
 
 <script>
-
+import { Plugins } from "@capacitor/core";
+const { EverlinkPlugin } = Plugins;
 
 export default {
   name: 'App',
-
+  methods: {
+    startListening: function() {
+      //to start listening for a code call:
+      EverlinkPlugin.everlinkStartListening({ isOffline: false });
+    },
+    stopListening: function () {
+      //to stop listening call:
+      EverlinkPlugin.everlinkStopListening();
+    },
+    startEmitting: function() {
+      //to start emitting an audio code call:
+      EverlinkPlugin.everlinkStartEmitting();
+    },
+    stopEmitting: function() {
+      //to stop emitting call:
+      EverlinkPlugin.everlinkStopEmitting();
+    },
+    startEmittingToken: function() {
+      //to start emitting the audio code of a token:
+      EverlinkPlugin.everlinkPlayToken({ token: 'exampleToken12345', isOffline: false });
+    },
+    newToken() {
+      //Generate a new user token to save in your database
+      EverlinkPlugin.everlinkNewToken();
+    },
+    playVolume() {
+      //set the volume 
+      EverlinkPlugin.everlinkPlayVolume({ volume: 0.6, useLoudspeaker: false });
+    },
+    saveTokens() {
+      //save tokens and their audiocodes 
+      const tokensArray = ['exampleToken12345', 'exampleToken12346']
+      EverlinkPlugin.everlinkSaveSounds({ tokens: tokensArray });
+    },
+    clearTokens() {
+      //delete saved tokens and their audiocodes 
+      EverlinkPlugin.everlinkClearSounds();
+    }
+  }
 }
+
 </script>
 
 <style>
