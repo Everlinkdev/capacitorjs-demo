@@ -9,7 +9,7 @@
         <button id="stopPlaying">Stop Playing</button>
       </div>
       <div display="flex" flex-direction="row">
-        <button id="newToken">Get New Token</button>
+        <button @click="newToken" id="newToken">Get New Token</button>
         <button id="saveSounds">Save sounds</button>
         <button id="clearSounds">Clear sounds</button>
       </div>
@@ -30,23 +30,23 @@ export default {
   name: 'App',
   
   methods: {
-    startListening: function() {
+    startListening() {
       //to start listening for a code call:
       EverlinkPlugin.everlinkStartListening({ isOffline: false });
     },
-    stopListening: function () {
+    stopListening() {
       //to stop listening call:
       EverlinkPlugin.everlinkStopListening();
     },
-    startEmitting: function() {
+    startEmitting() {
       //to start emitting an audio code call:
       EverlinkPlugin.everlinkStartEmitting();
     },
-    stopEmitting: function() {
+    stopEmitting() {
       //to stop emitting call:
       EverlinkPlugin.everlinkStopEmitting();
     },
-    startEmittingToken: function() {
+    startEmittingToken() {
       //to start emitting the audio code of a token:
       EverlinkPlugin.everlinkPlayToken({ token: 'exampleToken12345', isOffline: false });
     },
