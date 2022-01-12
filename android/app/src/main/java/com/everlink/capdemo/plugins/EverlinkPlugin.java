@@ -27,14 +27,20 @@ import org.json.JSONException;
 )
 public class EverlinkPlugin extends Plugin {
 
-    private final com.everlink.broadcast.util.Everlink EverlinkConnect;
+    private com.everlink.broadcast.util.Everlink EverlinkObj;
+    private boolean connectCalled = false;
 
     public EverlinkPlugin() {
+        //not able to call Everlink SKD from init due to "com.getcapacitor.Bridge.getContext()' on a null object reference" error
+        //using method everlinkConnect() as a workaround
+    }
 
-        String myAppID = "12345";
+    private void everlinkConnect() {
 
-        EverlinkConnect = new Everlink(getContext(), getActivity(), myAppID);
-        EverlinkConnect.setAudioListener(new Everlink.audioListener() {
+        String myAppID = "gitdemokey11";
+        connectCalled = true;
+        EverlinkObj = new Everlink(getContext(), getActivity(), myAppID);
+        EverlinkObj.setAudioListener(new Everlink.audioListener() {
 
             @Override
             public void onAudioCodeReceived(String token) {
@@ -45,7 +51,7 @@ public class EverlinkPlugin extends Plugin {
             }
 
             @Override
-            public void onEverLinkError(String error) {
+            public void onEverlinkError(String error) {
                 //returns the type of error received: server response, no internet, no permissions
             }
 
@@ -64,7 +70,9 @@ public class EverlinkPlugin extends Plugin {
 
     @PluginMethod()
     public void everlinkStartListening(PluginCall call) {
-
+        if(!connectCalled) {
+            everlinkConnect();
+        }
         if (getPermissionState("microphone") != PermissionState.GRANTED) {
             requestPermissionForAlias("microphone", call, "recordPermsCallback");
         } else {
@@ -75,44 +83,58 @@ public class EverlinkPlugin extends Plugin {
 
     @PluginMethod()
     public void everlinkStopListening(PluginCall call) {
-
-        EverlinkConnect.stopListening();
+        if(!connectCalled) {
+            everlinkConnect();
+        }
+        EverlinkObj.stopListening();
         call.resolve();
     }
 
     @PluginMethod()
     public void everlinkStartEmitting(PluginCall call) {
-
-        EverlinkConnect.startEmitting();
+        if(!connectCalled) {
+            everlinkConnect();
+        }
+        EverlinkObj.startEmitting();
         call.resolve();
     }
 
     @PluginMethod()
     public void everlinkStopEmitting(PluginCall call) {
-
-        EverlinkConnect.stopEmitting();
+        if(!connectCalled) {
+            everlinkConnect();
+        }
+        EverlinkObj.stopEmitting();
         call.resolve();
     }
 
     @PluginMethod()
     public void everlinkNewToken(PluginCall call) {
-
+        if(!connectCalled) {
+            everlinkConnect();
+        }
         String date = call.getString("startValidDate", "");
-        EverlinkConnect.createNewToken(date);
+        EverlinkObj.createNewToken(date);
         call.resolve();
     }
 
     @PluginMethod()
     public void everlinkPlayToken(PluginCall call) {
+        if(!connectCalled) {
+            everlinkConnect();
+        }
         String tokenToPlay = call.getString("token");
         Boolean offline = call.getBoolean("isOffline", false);
         if(offline != null)
-        EverlinkConnect.startEmittingToken(tokenToPlay, offline);
+            EverlinkObj.startEmittingToken(tokenToPlay, offline);
         call.resolve();
     }
 
     @PluginMethod()
     public void everlinkSaveSounds(PluginCall call) {
+        if(!connectCalled) {
+            everlinkConnect();
+        }
         JSArray tokensArray = call.getArray("tokens");
         String[] tokens = new String[tokensArray.length()];
         for (int i = 0; i < tokensArray.length(); i++) {
@@ -122,22 +144,28 @@ public class EverlinkPlugin extends Plugin {
                 e.printStackTrace();
             }
         }
-        EverlinkConnect.saveSounds(tokens);
+        EverlinkObj.saveSounds(tokens);
         call.resolve();
     }
 
     @PluginMethod()
     public void everlinkClearSounds(PluginCall call) {
-        EverlinkConnect.clearSounds();
+        if(!connectCalled) {
+            everlinkConnect();
+        }
+        EverlinkObj.clearSounds();
         call.resolve();
     }
 
     @PluginMethod()
     public void everlinkPlayVolume(PluginCall call) {
+        if(!connectCalled) {
+            everlinkConnect();
+        }
         Double volume = call.getDouble("token");
         Boolean useLoudspeaker = call.getBoolean("useLoudspeaker", false);
         if(useLoudspeaker != null && volume != null)
-        EverlinkConnect.playVolume(volume, useLoudspeaker);
+            EverlinkObj.playVolume(volume, useLoudspeaker);
         call.resolve();
     }
 
@@ -162,7 +190,7 @@ public class EverlinkPlugin extends Plugin {
 
         Boolean offline = call.getBoolean("isOffline", false);
         if(offline != null)
-        EverlinkConnect.startListening(offline);
+            EverlinkObj.startListening(offline);
         call.resolve();
 
     }
