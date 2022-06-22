@@ -20,8 +20,10 @@
 </template>
 
 <script>
-import { Plugins } from "@capacitor/core";
-const { EverlinkPlugin } = Plugins;
+//import { Plugins } from "@capacitor/core";
+//const { EverlinkPlugin } = Plugins;
+import { registerPlugin } from "@capacitor/core";
+const EverlinkPlugin = registerPlugin("EverlinkPlugin");
 
 export default {
   name: "App",
