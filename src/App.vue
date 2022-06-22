@@ -23,11 +23,15 @@
 import { Plugins } from "@capacitor/core";
 const { EverlinkPlugin } = Plugins;
 
-var myPluginEventListener;
-var myPluginEventListener2;
-
 export default {
   name: "App",
+
+  data() {
+    return {
+      myPluginEventListener: null,
+      myPluginEventListener2: null,
+    };
+  },
 
   methods: {
     startListening() {
@@ -72,8 +76,8 @@ export default {
     },
   },
 
-  created: function () {
-    myPluginEventListener = EverlinkPlugin.addListener(
+  mounted: function () {
+    this.myPluginEventListener = EverlinkPlugin.addListener(
       "onAudioCodeReceived",
       (result) => {
         const token = JSON.stringify(result.detectedToken);
@@ -81,7 +85,7 @@ export default {
       }
     );
 
-    myPluginEventListener2 = EverlinkPlugin.addListener(
+    this.myPluginEventListener2 = EverlinkPlugin.addListener(
       "onMyTokenGenerated",
       (result) => {
         const token = JSON.stringify(result.newToken);
@@ -91,8 +95,8 @@ export default {
   },
 
   destroyed: function () {
-    myPluginEventListener.remove();
-    myPluginEventListener2.remove();
+    this.myPluginEventListener.remove();
+    this.myPluginEventListener2.remove();
   },
 };
 </script>
