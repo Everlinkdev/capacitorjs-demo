@@ -38,7 +38,7 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:$androidxJunitVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$androidxEspressoCoreVersion"
     implementation project(':capacitor-cordova-android-plugins')
-    implementation 'com.everlink:broadcast:2.0.1'
+    implementation 'com.everlink:broadcast:2.0.3'
     implementation 'org.apache.commons:commons-math3:3.6.1'
 }
 
