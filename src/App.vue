@@ -61,7 +61,7 @@ export default {
     },
     newToken() {
       //generate a new user token to save in your database
-      EverlinkPlugin.everlinkNewToken();
+      EverlinkPlugin.everlinkNewToken({ startValidDate: "" });
     },
     playVolume() {
       //set the volume

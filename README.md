@@ -1,24 +1,7 @@
-# cap-demo
+# Everlink Android Capacitor Demo
 
-## Project setup
-```
-npm install
-```
+This demo is built using capacitorjs v3, for a guide using v2 see [here](https://everlink.co/docs/cap/).
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+### Read more
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+See [capacitorjs docs](https://capacitorjs.com/docs/android/custom-code).
